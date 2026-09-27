@@ -6,6 +6,8 @@ import { events } from '../../core/events';
 import { registerCommands } from '../../core/commands';
 import { setViewOption, viewOptions, viewportHooks, type ViewOptions } from '../../core/viewport';
 import { createCanvas } from '../../core/canvas';
+import { xp } from '../prefs/store';
+import { fromHex } from '../../core/color';
 
 const SHOW_KEYS = ['layerEdges', 'selectionEdges', 'targetPath', 'grid', 'guides', 'count', 'smartGuides', 'notes', 'pixelGrid'] as const;
 const SNAP_KEYS = ['snapGuides', 'snapGrid', 'snapLayers', 'snapBounds'] as const;
@@ -61,10 +63,12 @@ function recompute(doc: PixDocument) {
   rx.drawImage(comp, 0, 0);
   const img = rx.getImageData(0, 0, W, H), d = img.data, s = (Q - 1) / 255;
   const gimg = proof.gamut ? rx.createImageData(W, H) : null, gd = gimg?.data;
+  // Preferences › Transparency & Gamut › Gamut Warning colour and opacity
+  const gc = fromHex(xp.gamutColor) || { r: 128, g: 128, b: 128 }, ga = Math.round((xp.gamutOpacity / 100) * 255);
   for (let i = 0; i < d.length; i += 4) {
     if (d[i + 3] === 0) continue;
     const k = ((Math.round(d[i] * s) * Q + Math.round(d[i + 1] * s)) * Q + Math.round(d[i + 2] * s));
-    if (gd && LUT!.gamut[k]) { gd[i] = gd[i + 1] = gd[i + 2] = 128; gd[i + 3] = 255; }
+    if (gd && LUT!.gamut[k]) { gd[i] = gc.r; gd[i + 1] = gc.g; gd[i + 2] = gc.b; gd[i + 3] = ga; }
     if (proof.colors) { d[i] = LUT!.rgb[k * 3]; d[i + 1] = LUT!.rgb[k * 3 + 1]; d[i + 2] = LUT!.rgb[k * 3 + 2]; }
   }
   if (proof.colors) { const c = createCanvas(W, H); c.getContext('2d')!.putImageData(img, 0, 0); e.proof = c; } else e.proof = null;

@@ -22,6 +22,7 @@ import { registerIcons } from '../../ui/icons';
 import { isDialogOpen } from '../../ui/dialog';
 import { TextLayer, cloneChar, defaultCharStyle, type AntiAlias, type CharStyle, type TextAlign, type TextLayout } from '../../layers/text-layer';
 import { FONT_STYLES, fontPicker } from './fonts';
+import { xp } from '../../features/prefs/store';
 
 registerIcons({
   'tp-left': '<path d="M4 6h16M4 10h10M4 14h16M4 18h10"/>',
@@ -125,6 +126,11 @@ export function end(apply: boolean) {
 // ------------------------------------------------------------------ text operations
 function insert(e: Ed, str: string) {
   const [a, b] = selRange(e);
+  if (xp.smartQuotes && (str === '"' || str === "'")) {         // Preferences › Type › Use Smart Quotes
+    const prev = a > 0 ? e.layer.text[a - 1] : '';
+    const open = !prev || /[\s([{\u2014\u2013-]/.test(prev);
+    str = str === '"' ? (open ? '\u201C' : '\u201D') : (open ? '\u2018' : '\u2019');
+  }
   const style = e.typing || (a < b ? e.layer.styleAt(a) : e.layer.caretStyle(a));
   if (b > a) e.layer.deleteRange(a, b);
   e.layer.insertText(a, str, style);

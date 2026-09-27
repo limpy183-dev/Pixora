@@ -5,6 +5,7 @@ import { icon } from '../../ui/icons';
 import { showPop } from '../../ui/widgets';
 import { createCanvas, ctx2d } from '../../core/canvas';
 import { toast } from '../../ui/toast';
+import { xp } from '../../features/prefs/store';
 
 const CANDIDATES = [
   'Arial', 'Arial Black', 'Helvetica', 'Helvetica Neue', 'Segoe UI', 'Roboto', 'Open Sans', 'Lato', 'Montserrat', 'Noto Sans', 'DejaVu Sans', 'Liberation Sans',
@@ -46,7 +47,7 @@ export async function loadLocalFonts(): Promise<number> {
 }
 const RECENT_KEY = 'pixora.type.recentFonts';
 export const recentFonts = (): string[] => { try { return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]'); } catch { return []; } };
-export function addRecentFont(f: string) { try { localStorage.setItem(RECENT_KEY, JSON.stringify([f, ...recentFonts().filter(x => x !== f)].slice(0, 8))); } catch { /* ignore */ } }
+export function addRecentFont(f: string) { try { localStorage.setItem(RECENT_KEY, JSON.stringify([f, ...recentFonts().filter(x => x !== f)].slice(0, Math.max(0, xp.recentFontCount)))); } catch { /* ignore */ } }
 
 export type PreviewSize = 'none' | 'small' | 'medium' | 'large';
 export const fontPrefs = { preview: (localStorage.getItem('pixora.type.preview') as PreviewSize) || 'medium' };

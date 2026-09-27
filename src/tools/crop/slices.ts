@@ -15,6 +15,7 @@ import { checkbox, iconButton, numberField, select, separator } from '../../ui/w
 import { svgCursor } from '../../ui/cursors';
 import { toast } from '../../ui/toast';
 import { registerIcons } from '../../ui/icons';
+import { xp } from '../../features/prefs/store';
 
 registerIcons({
   'sl-front': '<rect x="8" y="8" width="11" height="11" fill="currentColor"/><rect x="4" y="4" width="11" height="11"/>',
@@ -82,15 +83,16 @@ viewportHooks.overlay.push((ctx, view, doc) => {
     const a = view.docToScreen(s.r.x, s.r.y), b = view.docToScreen(s.r.x + s.r.w, s.r.y + s.r.h);
     const x = Math.round(Math.min(a.x, b.x)) + 0.5, y = Math.round(Math.min(a.y, b.y)) + 0.5, w = Math.abs(b.x - a.x), hh = Math.abs(b.y - a.y);
     const sel = s.user && s.user.id === selId;
-    ctx.strokeStyle = s.user ? (sel ? '#ffb000' : '#3d8bff') : 'rgba(150,150,150,.9)';
+    ctx.strokeStyle = s.user ? (sel ? '#ffb000' : xp.sliceColor) : 'rgba(150,150,150,.9)';
     ctx.setLineDash(s.user ? [] : [3, 3]);
     ctx.lineWidth = 1;
     ctx.strokeRect(x, y, w, hh);
     if (!s.user && activeTool) { ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(x, y, w, hh); }
-    // number badge
+    // number badge (Preferences › Guides, Grid & Slices › Show Slice Numbers)
+    if (!xp.sliceNumbers) { if (sel) for (const [u, v] of HANDLES) { const hx = x + u * w, hy = y + v * hh; ctx.fillStyle = '#ffb000'; ctx.fillRect(hx - 3, hy - 3, 6, 6); } return; }
     const label = String(i + 1).padStart(2, '0');
     const bw = ctx.measureText(label).width + 16;
-    ctx.fillStyle = s.user ? (sel ? '#ffb000' : '#3d8bff') : '#8a8a8a';
+    ctx.fillStyle = s.user ? (sel ? '#ffb000' : xp.sliceColor) : '#8a8a8a';
     ctx.fillRect(x + 1, y + 1, bw, 13);
     ctx.fillStyle = '#fff';
     ctx.fillText(label, x + 4, y + 11);

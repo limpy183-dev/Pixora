@@ -72,12 +72,17 @@ export function alphaBounds(c: HTMLCanvasElement, threshold = 0): Rect | null {
 }
 
 let checker: CanvasPattern | null = null;
+/** Transparency grid appearance (Preferences › Transparency & Gamut); size 0 = use the caller's size. */
+export const checkerStyle = { light: '#ffffff', dark: '#cccccc', size: 0 };
+/** Drop the cached pattern after changing checkerStyle. */
+export function resetCheckerPattern() { checker = null; }
 /** 8px grey/white checkerboard pattern (transparency grid). */
 export function checkerPattern(ctx: CanvasRenderingContext2D, size = 8): CanvasPattern {
   if (checker) return checker;
+  size = checkerStyle.size || size;
   const c = createCanvas(size * 2, size * 2), x = ctx2d(c);
-  x.fillStyle = '#ffffff'; x.fillRect(0, 0, size * 2, size * 2);
-  x.fillStyle = '#cccccc'; x.fillRect(size, 0, size, size); x.fillRect(0, size, size, size);
+  x.fillStyle = checkerStyle.light; x.fillRect(0, 0, size * 2, size * 2);
+  x.fillStyle = checkerStyle.dark; x.fillRect(size, 0, size, size); x.fillRect(0, size, size, size);
   return (checker = ctx.createPattern(c, 'repeat')!);
 }
 

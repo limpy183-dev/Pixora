@@ -13,6 +13,7 @@ import { toast } from '../../ui/toast';
 import { resampleCanvas, RESAMPLE_LABELS, type ResampleMethod } from '../image/resample';
 import { baseName, encodeImage, FORMAT_INFO } from './formats';
 import { downloadBlob } from './io';
+import { xp } from '../prefs/store';
 
 type Fmt = 'png' | 'jpeg' | 'webp';
 interface ExportOpts { fmt: Fmt; quality: number; transparent: boolean; matte: RGB; scale: number; method: ResampleMethod; extras: { scale: number; suffix: string }[]; metadata: boolean }
@@ -38,9 +39,12 @@ export function exportCanvas(src: HTMLCanvasElement, o: Pick<ExportOpts, 'fmt' |
 }
 
 export async function quickExport(doc: PixDocument) {
-  const blob = await encodeImage(doc.flattenedCanvas(), 'png');
-  downloadBlob(blob, `${baseName(doc.name)}.png`);
-  toast(`Exported ${baseName(doc.name)}.png (${fmtSize(blob.size)})`, 'success');
+  // Preferences › Export: Quick Export format and quality
+  const fmt = xp.quickFormat, ext = fmt === 'jpeg' ? 'jpg' : fmt;
+  const blob = await encodeImage(doc.flattenedCanvas(), fmt, xp.quickQuality / 100);
+  const file = `${baseName(doc.name)}.${xp.lowercaseExt ? ext : ext.toUpperCase()}`;
+  downloadBlob(blob, file);
+  toast(`Exported ${file} (${fmtSize(blob.size)})`, 'success');
 }
 
 export async function exportAsDialog(doc: PixDocument, legacy = false, source?: { canvas: HTMLCanvasElement; name: string }) {

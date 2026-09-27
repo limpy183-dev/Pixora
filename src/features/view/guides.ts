@@ -16,6 +16,7 @@ import { toast } from '../../ui/toast';
 import { workspaceHooks, unitScale } from '../../ui/workspace';
 import { pathBounds, type VectorPath } from '../../core/path';
 import { fromHex, toHex } from '../../core/color';
+import { xp } from '../prefs/store';
 
 const SNAP_PX = 8;               // snapping distance in screen pixels
 let nextGuideId = 1;
@@ -42,6 +43,7 @@ viewportHooks.overlay.push((ctx, view, doc) => {
     ctx.save();
     ctx.lineWidth = 1;
     ctx.strokeStyle = guideColor();
+    ctx.setLineDash(xp.guideStyle === 'dashed' ? [4, 3] : []);
     ctx.beginPath();
     for (const g of doc.guides) { if (live && g.id === live.id) continue; lineAcross(ctx, view, g.orientation, g.pos); }
     ctx.stroke();
@@ -86,7 +88,13 @@ viewportHooks.afterComposite.push((ctx, view, doc) => {
   const draw = (s: number, alpha: number, dash: boolean) => {
     if (s * z < 4) return;
     ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${alpha})`;
-    ctx.setLineDash(dash ? [3 / z, 3 / z] : []);
+    if (xp.gridStyle === 'dots') {                  // Preferences › Guides, Grid & Slices › Style: Dots
+      ctx.fillStyle = ctx.strokeStyle;
+      const d = 1.5 / z;
+      for (let x = Math.ceil(X0 / s) * s; x <= X1; x += s) for (let y = Math.ceil(Y0 / s) * s; y <= Y1; y += s) ctx.fillRect(x - d / 2, y - d / 2, d, d);
+      return;
+    }
+    ctx.setLineDash(dash || xp.gridStyle === 'dashed' ? [3 / z, 3 / z] : []);
     ctx.beginPath();
     for (let x = Math.ceil(X0 / s) * s; x <= X1; x += s) { ctx.moveTo(x, Y0); ctx.lineTo(x, Y1); }
     for (let y = Math.ceil(Y0 / s) * s; y <= Y1; y += s) { ctx.moveTo(X0, y); ctx.lineTo(X1, y); }
@@ -298,11 +306,13 @@ function layoutGuides(doc: PixDocument, o: LayoutOpts): Guide[] {
   if (o.rows) axis(o.rowN, o.rowH, o.rowG, T, B, 'h');
   return out;
 }
+let layoutTouched = false;
 let lastLayout: LayoutOpts = { cols: true, colN: 8, colW: 0, colG: 20, rows: false, rowN: 4, rowH: 0, rowG: 20, margin: false, mt: 40, ml: 40, mb: 40, mr: 40, center: false, clear: true };
 async function newGuideLayout() {
   const doc = app.activeDoc;
   if (!doc) return;
-  const o: LayoutOpts = { ...lastLayout };
+  // column size defaults come from Preferences › Units & Rulers until the layout is changed here
+  const o: LayoutOpts = layoutTouched ? { ...lastLayout } : { ...lastLayout, colW: xp.columnWidth, colG: xp.columnGutter };
   const base = doc.guides;
   const t = doc.history.begin('New Guide Layout', 'guide');
   const preview = () => { const g = layoutGuides(doc, o); let id = newId(doc); doc.guides = [...(o.clear ? [] : base), ...g.map(x => ({ ...x, id: id++ }))]; doc.redrawOverlay(); };
@@ -329,7 +339,7 @@ async function newGuideLayout() {
   if (!viewOptions.guides || !viewOptions.extras) { setViewOption('guides', true); setViewOption('extras', true); }
   preview();
   const ok = await openDialog({ title: 'New Guide Layout', body: form, layout: 'side', width: 520 }).result;
-  if (ok) { lastLayout = o; t.commit('New Guide Layout'); events.emit('guides', doc); } else { t.cancel(); doc.guides = base; }
+  if (ok) { lastLayout = o; layoutTouched = true; t.commit('New Guide Layout'); events.emit('guides', doc); } else { t.cancel(); doc.guides = base; }
   doc.redrawOverlay();
 }
 function guidesFromShape() {

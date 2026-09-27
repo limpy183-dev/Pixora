@@ -19,6 +19,7 @@ import { toast } from '../../ui/toast';
 import { pickFiles } from '../file/io';
 import type { MenuEntry } from '../../ui/menu';
 import { CATALOG } from './catalog';
+import { xp } from '../prefs/store';
 
 export interface PluginParam { key: string; label: string; min?: number; max?: number; step?: number; default: number | boolean; type?: 'slider' | 'check' }
 export interface PluginRecord { id: string; name: string; description: string; author: string; version: string; code: string; enabled: boolean; params: PluginParam[]; catalogId?: string }
@@ -67,6 +68,7 @@ export async function inspect(code: string): Promise<Omit<PluginRecord, 'id' | '
 }
 const workers = new Map<string, Worker>();
 async function runPlugin(p: PluginRecord, img: ImageData, params: any, info: any): Promise<ImageData> {
+  if (!xp.pluginsEnabled) throw new Error('Plugins are turned off in Preferences › Plugins.');
   let w = workers.get(p.id);
   if (!w) { w = spawn(p.code); workers.set(p.id, w); }
   const copy = new Uint8ClampedArray(img.data);

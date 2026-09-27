@@ -16,6 +16,7 @@ import { toast } from '../ui/toast';
 import { SmartObjectLayer, smartFilterHooks, type SmartFilter } from '../layers/smart-object';
 import { KERNELS, type Meta } from './kernels/index';
 import type { RGB } from '../core/types';
+import { xp } from '../features/prefs/store';
 
 // ------------------------------------------------------------------ worker lanes
 type Job = { id: number; ok: (img: ImageData) => void; err: (e: unknown) => void };
@@ -23,7 +24,7 @@ class Lane {
   w: Worker | null = null; broken = false; job: Job | null = null; seq = 0;
   constructor(private restartable: boolean) {}
   private spawn(): Worker | null {
-    if (this.broken) return null;
+    if (this.broken || !xp.workerFilters) return null;           // Preferences › Technology Previews
     if (this.w) return this.w;
     try {
       const w = new Worker(new URL('./filters.worker.ts', import.meta.url), { type: 'module' });

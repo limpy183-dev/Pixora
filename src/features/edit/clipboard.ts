@@ -10,6 +10,7 @@ import { intersectRect } from '../../core/geom';
 import type { Rect } from '../../core/types';
 import { isTyping } from '../../ui/dom';
 import { toast } from '../../ui/toast';
+import { xp } from '../prefs/store';
 
 interface Clip { canvas: HTMLCanvasElement; x: number; y: number; docW: number; docH: number; stamp: string }
 let clip: Clip | null = null;
@@ -49,6 +50,7 @@ function grab(doc: PixDocument, t: PaintTarget | null, merged: boolean, what: st
 }
 
 async function toSystem(c: HTMLCanvasElement) {
+  if (!xp.exportClipboard) return;                    // Preferences › General › Export Clipboard
   try {
     const CI = (window as any).ClipboardItem;
     if (!CI || !navigator.clipboard?.write) return;

@@ -1,0 +1,39 @@
+/* Preferences dialog (pf-*) */
+.pf-body { display: grid; grid-template-columns: 190px 1fr; gap: 12px; min-height: 520px; padding: 10px 0 10px 10px; }
+.pf-nav { background: var(--bg-list); border: 1px solid var(--border); border-radius: 3px; padding: 4px 0; overflow-y: auto; max-height: 560px; }
+.pf-navitem { padding: 5px 12px; cursor: pointer; color: var(--text); white-space: nowrap; }
+.pf-navitem:hover { background: var(--bg-input); }
+.pf-navitem.on { background: var(--bg-row-selected); color: var(--text-strong); }
+.pf-pane { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; max-height: 560px; padding-right: 6px; }
+.pf-title { font-size: 15px; font-weight: 600; color: var(--text-strong); margin-bottom: 2px; }
+.pf-group { border: 1px solid var(--border); border-radius: 3px; padding: 6px 10px 8px; margin: 0; display: flex; flex-direction: column; gap: 5px; }
+.pf-group legend { color: var(--text-dim); padding: 0 4px; font-size: 11px; }
+.pf-row { gap: 8px; }
+.pf-label { min-width: 160px; }
+.pf-check { padding: 1px 0; }
+.pf-unit { color: var(--text-dim); }
+.pf-note { color: var(--text-dim); font-size: 11px; line-height: 1.45; }
+.pf-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.pf-armed { border-color: var(--accent) !important; color: var(--text-strong); }
+.pf-themes { display: flex; gap: 6px; }
+.pf-theme { width: 34px; height: 24px; border-radius: 3px; border: 1px solid var(--border); cursor: pointer; }
+.pf-theme.on { outline: 2px solid var(--accent); outline-offset: 1px; }
+.pf-t-darkest { background: #1e1e1e; } .pf-t-dark { background: #323232; } .pf-t-medium { background: #b8b8b8; } .pf-t-light { background: #f0f0f0; }
+.pf-radio { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.pf-mem { display: flex; flex-direction: column; gap: 4px; color: var(--text); }
+.pf-mem .btn { align-self: flex-start; margin-top: 4px; }
+.pf-split { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.pf-checker { border: 1px solid var(--border); }
+.pf-dialog .dialog-buttons { min-width: 110px; }
+
+/* global appearance switches (Preferences › Interface / Workspace) */
+body.pf-ui-medium .dock-col, body.pf-ui-medium .dialog, body.pf-ui-medium .menu { zoom: 1.08; }
+body.pf-ui-large .dock-col, body.pf-ui-large .dialog, body.pf-ui-large .menu { zoom: 1.18; }
+body.pf-large-tabs .doc-tabs { height: 44px; }
+body.pf-large-tabs .doc-tab { font-size: 15px; padding: 0 12px 0 16px; }
+body.pf-narrow-options #app { grid-template-rows: 34px 34px 1fr; }
+body.pf-narrow-options.panels-hidden #app, body.pf-narrow-options.hide-options #app { grid-template-rows: 34px 0 1fr; }
+body.pf-narrow-options .tool-options { font-size: 12px; gap: 5px; }
+body.pf-text-shadow .panel, body.pf-text-shadow .menubar, body.pf-text-shadow .optionsbar { text-shadow: 0 1px 1px rgba(0, 0, 0, .45); }
+.pf-recover { display: flex; flex-direction: column; gap: 6px; line-height: 1.45; }
+.pf-recover ul { margin: 0; padding-left: 18px; color: var(--text-strong); }

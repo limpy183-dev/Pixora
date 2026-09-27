@@ -15,6 +15,8 @@ import { checkbox, numberField, select, textField } from '../../ui/widgets';
 import { toast } from '../../ui/toast';
 import type { MenuEntry } from '../../ui/menu';
 import { SmartObjectLayer } from '../../layers/smart-object';
+import { RasterLayer, type Layer } from '../../core/layer';
+import { xp } from '../prefs/store';
 import { baseName, extOf, FORMAT_INFO, OPEN_ACCEPT, readAnyFile, svgToCanvas, writeDocument, writePSD, type SaveFormat } from './formats';
 import { addRecent, chooseSaveTarget, clearRecent, downloadBlob, getRecent, pickFiles, recentList, saveTargetOf, setSaveTarget, writeTarget } from './io';
 import { newDocumentDialog } from './new-doc';
@@ -169,15 +171,25 @@ function revert(doc: PixDocument) {
 export async function placeFile(doc: PixDocument, blob: Blob, name: string, linked = false, at?: { x: number; y: number }) {
   let c: HTMLCanvasElement;
   try { c = await flatCanvasOf(blob, name); } catch { toast(`Could not place “${name}” because the file is not a supported format.`, 'error'); return; }
-  const k = Math.min(1, doc.width / c.width, doc.height / c.height);
+  // Preferences › General: Resize Image During Place, Always Create Smart Objects, Skip Transform when Placing
+  const k = xp.resizeOnPlace ? Math.min(1, doc.width / c.width, doc.height / c.height) : 1;
   const w = c.width * k, hh = c.height * k;
   const cx = at?.x ?? doc.width / 2, cy = at?.y ?? doc.height / 2;
-  const l = SmartObjectLayer.fromCanvas(c, baseName(name));
-  l.matrix = [k, 0, 0, k, Math.round(cx - w / 2), Math.round(cy - hh / 2)];
-  if (linked) (l as any).linkedFile = name;
+  let l: Layer;
+  if (xp.placeAsSmart || linked) {
+    const so = SmartObjectLayer.fromCanvas(c, baseName(name));
+    so.matrix = [k, 0, 0, k, Math.round(cx - w / 2), Math.round(cy - hh / 2)];
+    if (linked) (so as any).linkedFile = name;
+    l = so;
+  } else {
+    const r = new RasterLayer(Math.max(1, Math.round(w)), Math.max(1, Math.round(hh)), baseName(name));
+    const rx = r.canvas.getContext('2d')!; rx.imageSmoothingQuality = 'high'; rx.drawImage(c, 0, 0, r.canvas.width, r.canvas.height);
+    r.x = Math.round(cx - w / 2); r.y = Math.round(cy - hh / 2);
+    l = r;
+  }
   doc.history.transaction(linked ? 'Place Linked' : 'Place Embedded', () => { doc.addLayer(l, { above: doc.activeLayer, select: true }); });
   doc.layersChanged();
-  hooks.startFreeTransform();
+  if (!xp.skipTransformPlace) hooks.startFreeTransform();
 }
 async function placeCmd(arg?: { blob?: Blob; name?: string }, linked = false) {
   const doc = D();
