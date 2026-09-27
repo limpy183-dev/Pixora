@@ -1,0 +1,50 @@
+/* Filter workspaces (ws-*) */
+.ws-dialog .dialog-content { align-items: stretch; }
+.dialog.side.ws-dialog .dialog-buttons { width: 300px; flex: none; display: flex; flex-direction: column; gap: 6px; padding-left: 10px; }
+.dialog.side.ws-dialog .dialog-buttons > .btn { width: 100%; }
+.dialog.side.ws-dialog .ws-side .btn { width: auto; }
+.ws-body { display: flex; gap: 8px; align-items: stretch; padding: 10px 0 10px 10px; }
+.ws-tools { display: flex; flex-direction: column; gap: 2px; padding: 2px; background: var(--bg-tabbar); border-radius: 4px; }
+.ws-tool { width: 36px; height: 34px; }
+.ws-tool.active { background: var(--bg-row-selected); color: var(--text-strong); }
+.ws-center { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ws-view { --ws-bg: #262626; border: 1px solid var(--border); line-height: 0; }
+.ws-canvas { display: block; touch-action: none; }
+.ws-viewbar { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.ws-zoom-label { min-width: 44px; text-align: center; }
+.ws-fit { padding: 1px 8px; font-size: 11px; }
+.ws-status { margin-left: auto; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ws-side { flex: 1; min-height: 0; overflow-y: auto; max-height: 700px; padding-right: 4px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.ws-slider { display: flex; flex-direction: column; gap: 1px; padding: 2px 0; }
+.ws-slider-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.ws-slider-label { color: var(--text); font-size: 12px; }
+.ws-num { width: 58px !important; text-align: right; padding: 1px 4px !important; height: 20px; }
+.ws-range { width: 100%; height: 14px; margin: 0; accent-color: var(--accent); background: transparent; appearance: none; -webkit-appearance: none; }
+.ws-range::-webkit-slider-runnable-track { height: 3px; background: var(--ws-track, var(--border)); border-radius: 2px; }
+.ws-range::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 11px; border-radius: 50%; background: var(--text-strong); margin-top: -4px; border: 1px solid #0006; }
+.ws-range::-moz-range-track { height: 3px; background: var(--ws-track, var(--border)); }
+.ws-sec { border-top: 1px solid var(--border); padding-top: 4px; }
+.ws-sec-head { display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-strong); font-weight: 600; padding: 3px 0; user-select: none; }
+.ws-sec.collapsed .ws-sec-body { display: none; }
+.ws-sec.collapsed .ws-sec-head .ico { transform: rotate(-90deg); }
+.ws-sec-body { display: flex; flex-direction: column; gap: 4px; padding: 2px 0 6px; }
+.ws-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ws-label { color: var(--text-dim); font-size: 11px; }
+.ws-hist { width: 100%; height: 90px; background: #1c1c1c; border: 1px solid var(--border); display: block; }
+.ws-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.ws-tab { padding: 3px 8px; border-radius: 3px; cursor: pointer; color: var(--text); background: var(--bg-input); border: 1px solid var(--border); font-size: 11px; }
+.ws-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+/* Filter Gallery */
+.gal-browser { display: flex; flex-direction: column; }
+.gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.gal-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 2px; background: none; border: 1px solid transparent; border-radius: 3px; cursor: pointer; color: var(--text); font-size: 10px; line-height: 1.15; text-align: center; }
+.gal-cell canvas { width: 84px; height: 60px; border: 1px solid var(--border); }
+.gal-cell:hover { background: var(--bg-list); }
+.gal-cell.active { border-color: var(--accent); background: var(--bg-row-selected); }
+.gal-settings { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--border); padding-top: 6px; }
+.gal-title { font-weight: 600; color: var(--text-strong); }
+.gal-layerhead { display: flex; align-items: center; gap: 4px; border-top: 1px solid var(--border); padding-top: 6px; color: var(--text-dim); font-size: 11px; }
+.gal-layerhead span { flex: 1; }
+.gal-layers { display: flex; flex-direction: column; border: 1px solid var(--border); background: var(--bg-list); min-height: 60px; }
+.gal-layer { display: flex; align-items: center; gap: 6px; padding: 3px 6px; cursor: pointer; }
+.gal-layer.active { background: var(--bg-row-selected); color: var(--text-strong); }

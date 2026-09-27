@@ -337,7 +337,8 @@ registerPropertiesSection({
           iconButton('chevron-down', 'Move down (applied earlier)', () => { if (i > 0) tx('Move Smart Filter', () => { const a = [...so.smartFilters]; [a[i], a[i - 1]] = [a[i - 1], a[i]]; so.smartFilters = a; }); }, { size: 14, disabled: i === 0 }),
           iconButton('trash', 'Delete Smart Filter', () => tx('Delete Smart Filter', () => { so.smartFilters = so.smartFilters.filter((_, k) => k !== i); }), { size: 14 }));
         row.addEventListener('dblclick', async () => {
-          const spec = specs.get(f.id);
+          const spec = specs.get(f.id) as any;
+          if (spec?.edit) { spec.edit(doc, so, i); return; }
           if (!spec || spec.dialog === false) return;
           const ctx = makeCtx(doc, true);
           ctx.aux = f.params._aux || {};
@@ -356,4 +357,20 @@ registerPropertiesSection({
 });
 
 export { ctx2d, createCanvas };
+/** Register a kernel-backed spec that is not a Filter-menu 'filter.run' item (special filters' smart filters). */
+export function registerSpec(spec: FilterSpec & { edit?: (doc: PixDocument, so: SmartObjectLayer, index: number) => void }) { specs.set(spec.id, spec as FilterSpec); }
+/** Run a kernel for a full-resolution apply (worker) / an interactive preview (restartable worker). */
+export const runApply = (name: string, img: ImageData, params: any, meta: Meta) => applyLane.run(name, img, params, meta);
+export const runPreview = (name: string, img: ImageData, params: any, meta: Meta) => previewLane.run(name, img, params, meta);
+/** Apply a kernel to the paint target (selection, masks, history) — special filters' OK. */
+export async function applyKernel(doc: PixDocument, name: string, kernel: string, p: any): Promise<boolean> {
+  return applyPixelOp(doc, name, (img: ImageData, info: PixelOpInfo) => applyLane.run(kernel, img, p, metaFor(info, doc, p, {})));
+}
+/** Add (or replace at index) a smart filter entry. */
+export function putSmartFilter(doc: PixDocument, so: SmartObjectLayer, id: string, label: string, params: any, index = -1) {
+  const f: SmartFilter = { id, label, params, enabled: true };
+  doc.history.transaction(index < 0 ? label : `Edit ${label}`, () => { so.smartFilters = index < 0 ? [...so.smartFilters, f] : so.smartFilters.map((x, i) => (i === index ? { ...f, enabled: x.enabled } : x)); so.invalidate(); }, 'smart');
+  doc.pixelsChanged(so, null); doc.layersChanged();
+}
+export { smartTarget, stamp, metaFor };
 (window as any).__pxFilters = { specs, runSync };
