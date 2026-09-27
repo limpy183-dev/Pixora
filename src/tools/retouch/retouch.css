@@ -22,3 +22,8 @@
 .cs-link { width: 22px; height: 22px; }
 .cs-dim { color: var(--text-dim); }
 .cs-panel .select { height: 24px; }
+
+/* Content-Aware Fill dialog */
+.caf-body { display: flex; flex-direction: column; gap: 8px; min-width: 360px; }
+.caf-preview { background: var(--checker); border: 1px solid var(--border); border-radius: 3px; }
+.caf-status { color: var(--text-dim); font-size: 11px; min-height: 14px; }

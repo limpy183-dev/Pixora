@@ -17,6 +17,7 @@ import { checkbox, select, popupSlider, numberField, iconButton, toggleButton, p
 import { icon } from '../../ui/icons';
 import { svgCursor } from '../../ui/cursors';
 import type { Pattern, Rect } from '../../core/types';
+import { readRegion } from '../paint/common';
 import './retouch.css';
 
 export type SampleMode = 'current' | 'below' | 'all';
@@ -101,7 +102,7 @@ export function selectionAlpha(doc: PixDocument): Uint8Array | null {
   const m = doc.selection.mask;
   let a = selCache.get(m);
   if (!a) {
-    const d = ctx2d(m).getImageData(0, 0, m.width, m.height).data;
+    const d = readRegion(m, 0, 0, m.width, m.height).data;
     a = new Uint8Array(m.width * m.height);
     for (let i = 0, j = 3; i < a.length; i++, j += 4) a[i] = d[j];
     selCache.set(m, a);
@@ -187,9 +188,9 @@ export const modeOptions = (list: MixMode[]): SelectOption<MixMode>[] => list.ma
  * Write a region result into the paint target: out = orig·(1−k) + res·k with k = weight·selection
  * (premultiplied; alpha kept when transparency is locked). Rect in HOLDER coords; res/weight sized r.w×r.h.
  */
-export function blendIntoTarget(doc: PixDocument, t: PaintTarget, orig: Uint8ClampedArray, res: Uint8ClampedArray, weight: Float32Array, r: Rect): ImageData {
+export function blendIntoTarget(doc: PixDocument, t: PaintTarget, orig: Uint8ClampedArray, res: Uint8ClampedArray, weight: Float32Array, r: Rect, useSelection = true): ImageData {
   const out = new ImageData(r.w, r.h), o = out.data;
-  const sel = selectionAlpha(doc), dw = doc.width, dh = doc.height;
+  const sel = useSelection ? selectionAlpha(doc) : null, dw = doc.width, dh = doc.height;
   const lockA = t.kind === 'pixels' && !!t.layer?.transparencyLocked;
   const hx = t.holder.x, hy = t.holder.y;
   for (let y = 0; y < r.h; y++) {
@@ -214,7 +215,7 @@ export function blendIntoTarget(doc: PixDocument, t: PaintTarget, orig: Uint8Cla
 
 /** Read the holder rect as RGBA; masks are returned as grey (R=G=B=value, A=255). */
 export function readTarget(t: PaintTarget, r: Rect, src: HTMLCanvasElement = t.holder.canvas): ImageData {
-  const img = ctx2d(src).getImageData(r.x, r.y, r.w, r.h);
+  const img = readRegion(src, r.x, r.y, r.w, r.h);
   if (t.isMask) { const d = img.data; for (let i = 0; i < d.length; i += 4) { const a = d[i + 3]; d[i] = d[i + 1] = d[i + 2] = a; d[i + 3] = 255; } }
   return img;
 }
@@ -239,9 +240,9 @@ export function optionsFor(tool: Tool) {
     },
     brushPanel(): HTMLElement { return iconButton('brush-settings', 'Toggle the Brush Settings panel', () => runCommand('window.showPanel', 'brush-settings')); },
     clonePanel(): HTMLElement { return iconButton('clone-source', 'Toggle the Clone Source panel', () => runCommand('window.showPanel', 'clone-source')); },
-    select<T>(label: string, key: string, options: SelectOption<T>[], width = 110, title?: string): HTMLElement {
-      const f = select(options, s[key] as T, v => { s[key] = v; save(); }, { width, title: title || label.replace(':', '') });
-      syncs.push(() => f.setValue(s[key]));
+    select<T>(label: string, key: string, options: SelectOption<T>[], width = 110, title?: string, onChange?: () => void): HTMLElement {
+      const f = select(options, s[key] as T, v => { s[key] = v; save(); onChange?.(); }, { width, title: title || label.replace(':', '') });
+      syncs.push(() => { f.setValue(s[key]); onChange?.(); });
       return h('span.opt-group', null, label ? lab(label) : null, f);
     },
     pct(label: string, key: string, title: string, min = 0, max = 100): HTMLElement {
