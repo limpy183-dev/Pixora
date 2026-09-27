@@ -5,3 +5,14 @@
 .pw-modes button + button { border-left: 1px solid var(--border); }
 .pw-modes button.on { background: var(--accent); color: #fff; }
 .pw-hint { color: var(--text-dim); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 420px; }
+
+/* Auto-Align / Auto-Blend dialogs */
+.aa-body { display: flex; flex-direction: column; gap: 8px; min-width: 500px; }
+.aa-head { color: var(--text-strong); font-weight: 600; margin-top: 4px; }
+.aa-proj { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.aa-tile { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 2px 6px; background: var(--bg-input); color: var(--text); border: 1px solid var(--border); border-radius: 4px; cursor: pointer; font-size: 11px; }
+.aa-tile:hover { border-color: var(--text-dim); }
+.aa-tile.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; color: var(--text-strong); }
+.aa-note { color: var(--text-dim); font-size: 11px; line-height: 1.4; }
+.ab-methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.ab-methods .aa-tile { flex-direction: row; justify-content: flex-start; gap: 10px; padding: 8px 10px; font-size: 12px; }
