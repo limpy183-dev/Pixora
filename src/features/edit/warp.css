@@ -1,0 +1,7 @@
+/* Puppet Warp / Perspective Warp options bar */
+.pw-disabled { opacity: .45; pointer-events: none; }
+.pw-modes { display: inline-flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.pw-modes button { height: 22px; padding: 0 12px; background: var(--bg-input); color: var(--text); border: 0; font-size: 11px; cursor: pointer; }
+.pw-modes button + button { border-left: 1px solid var(--border); }
+.pw-modes button.on { background: var(--accent); color: #fff; }
+.pw-hint { color: var(--text-dim); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 420px; }
