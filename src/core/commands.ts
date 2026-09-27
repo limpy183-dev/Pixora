@@ -11,7 +11,7 @@ export interface Command {
   /** Greyed out in menus when false. Default: enabled. */
   enabled?(): boolean;
   /** Shows a check mark in menus when true. */
-  checked?(): boolean;
+  checked?(arg?: any): boolean;
 }
 
 export const commands = new Map<string, Command>();
@@ -24,9 +24,9 @@ export function isCommandEnabled(id: string): boolean {
   if (!c) return false;
   try { return c.enabled ? !!c.enabled() : true; } catch { return false; }
 }
-export function isCommandChecked(id: string): boolean {
+export function isCommandChecked(id: string, arg?: any): boolean {
   const c = commands.get(id);
-  try { return !!c?.checked?.(); } catch { return false; }
+  try { return !!c?.checked?.(arg); } catch { return false; }
 }
 
 /** Run a command. Returns its result (awaitable). Errors are reported as a toast. */

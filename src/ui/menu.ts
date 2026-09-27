@@ -59,7 +59,7 @@ function buildMenu(items: MenuEntry[], level: number): HTMLElement {
     const cmd = it.cmd ? commands.get(it.cmd) : undefined;
     const label = it.label ?? cmd?.label ?? it.cmd ?? '';
     const sc = it.shortcut ?? (Array.isArray(cmd?.shortcut) ? cmd!.shortcut[0] : cmd?.shortcut);
-    const checked = it.checked !== undefined ? val(it.checked, false) : it.cmd ? isCommandChecked(it.cmd) : false;
+    const checked = it.checked !== undefined ? val(it.checked, false) : it.cmd ? isCommandChecked(it.cmd, it.arg) : false;
     const enabled = isEnabled(it);
     const hasSub = !!it.submenu;
     const row = h('div.menu-item', { role: 'menuitem', class: [enabled ? '' : 'disabled', hasSub ? 'has-sub' : ''].join(' ') },

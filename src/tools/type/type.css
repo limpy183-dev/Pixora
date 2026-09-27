@@ -1,0 +1,109 @@
+/* Type tools: hidden IME textarea, font picker, size presets */
+.tp-ime {
+  position: fixed; left: -1000px; top: 0; width: 2px; height: 20px; padding: 0; margin: 0; border: 0;
+  opacity: 0; resize: none; overflow: hidden; z-index: -1; pointer-events: none; font-size: 16px; color: transparent;
+  background: transparent; caret-color: transparent;
+}
+.tp-fontpick { display: inline-flex; align-items: center; gap: 0; }
+.tp-fontpick .tp-font { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.tp-fontpick .popup-arrow {
+  height: 24px; width: 18px; display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  background: var(--bg-input); color: var(--text); border: 1px solid var(--border); border-left: 0;
+  border-radius: 0 3px 3px 0; cursor: pointer;
+}
+.tp-fontpick .popup-arrow:hover { color: var(--text-strong); }
+.tp-fontpop { padding: 4px 0 0; width: 300px; display: flex; flex-direction: column; }
+.tp-fontlist { max-height: 360px; overflow-y: auto; }
+.tp-fontitem {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 3px 10px; cursor: default;
+  color: var(--text); white-space: nowrap;
+}
+.tp-fontitem:hover { background: var(--accent); color: #fff; }
+.tp-fontitem.active { background: var(--bg-row-selected); color: var(--text-strong); }
+.tp-fname { overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; font-size: 12px; }
+.tp-fprev { flex: none; max-width: 130px; overflow: hidden; line-height: 1.15; }
+.tp-fontsep { height: 1px; background: var(--border); margin: 4px 0; }
+.tp-fontempty { padding: 8px 10px; color: var(--text-dim); font-style: italic; }
+.tp-fontmore { border-top: 1px solid var(--border); padding: 6px 10px; color: var(--accent); cursor: pointer; }
+.tp-fontmore:hover { background: var(--bg-row-selected); }
+.tp-size { display: inline-flex; align-items: center; gap: 0; }
+.tp-sizepop { padding: 4px 0; min-width: 80px; max-height: 320px; overflow-y: auto; }
+.tp-sizeitem { padding: 3px 14px; cursor: default; color: var(--text); }
+.tp-sizeitem:hover { background: var(--accent); color: #fff; }
+.tp-flex { flex: 1; }
+
+/* Character / Paragraph panels (tpp-*) */
+.tpp-panel { padding: 8px 10px; }
+.tpp-char, .tpp-para { display: flex; flex-direction: column; gap: 7px; }
+.tpp-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.tpp-row.tpp-2 > * { flex: 1 1 0; min-width: 0; }
+.tpp-char .tp-fontpick { width: 100%; }
+.tpp-char .tp-fontpick .tp-font { flex: 1; width: auto !important; min-width: 0; }
+.tpp-combo { display: inline-flex; align-items: center; min-width: 0; }
+.tpp-combo .tpp-combo-in { flex: 1; min-width: 0; width: auto !important; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.tpp-combo .tpp-combo-arrow {
+  height: 24px; width: 16px; display: inline-flex; align-items: center; justify-content: center; padding: 0;
+  background: var(--bg-input); color: var(--text); border: 1px solid var(--border); border-left: 0; border-radius: 0 3px 3px 0; cursor: pointer;
+}
+.tpp-ico { display: inline-flex; color: var(--text-dim); margin-right: 4px; flex: none; }
+.tpp-row .num-wrap { display: inline-flex; align-items: center; min-width: 0; }
+.tpp-row .num-wrap .scrub-label { display: inline-flex; color: var(--text-dim); margin-right: 4px; }
+.tpp-row .num-wrap .field.num { flex: 1; min-width: 0; width: auto !important; }
+.tpp-lab { color: var(--text-dim); font-size: 11px; white-space: nowrap; }
+.tpp-colorcell, .tpp-aacell { display: inline-flex; align-items: center; gap: 6px; }
+.tpp-colorcell .color-swatch { width: 44px !important; height: 20px !important; }
+.tpp-aacell .select { flex: 1; }
+.tpp-togs { display: flex; flex-wrap: wrap; gap: 2px; padding: 2px 0; }
+.tpp-togs .icon-btn.tpp-tog { width: 26px; height: 24px; }
+.tpp-togs .icon-btn.tpp-tog.active { background: var(--bg-row-selected); color: var(--text-strong); }
+.tpp-mixed { background-image: linear-gradient(135deg, transparent 45%, var(--text-dim) 45%, var(--text-dim) 55%, transparent 55%) !important; }
+.tpp-char.compact, .tpp-para.compact { gap: 6px; }
+.tpp-char.compact .tpp-combo { flex: 1; }
+.tpp-sub { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 6px; }
+.tpp-subhead { color: var(--text-dim); font-size: 11px; margin-bottom: 4px; }
+.tpp-links { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.tpp-links .btn { padding: 2px 8px; font-size: 11px; }
+
+/* Character / Paragraph Styles */
+.tpp-styles { padding: 2px 0; }
+.tpp-style { display: flex; align-items: center; gap: 8px; padding: 5px 10px; cursor: default; color: var(--text); }
+.tpp-style:hover { background: var(--bg-list); }
+.tpp-style.selected { background: var(--bg-row-selected); color: var(--text-strong); }
+.tpp-style-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tpp-style-chip { width: 12px; height: 12px; border-radius: 2px; border: 1px solid var(--border); flex: none; }
+.tpp-opts .checkbox { margin-right: 10px; }
+
+/* Glyphs */
+.tpp-gbar { display: flex; gap: 6px; padding: 6px 8px; align-items: center; flex-wrap: wrap; }
+.tpp-grecent { display: flex; gap: 2px; align-items: center; padding: 0 8px 4px; flex-wrap: wrap; min-height: 26px; }
+.tpp-grecent .tpp-glyph { width: 24px !important; height: 24px !important; font-size: 15px !important; }
+.tpp-grecent .tpp-lab { margin-right: 4px; }
+.tpp-glyphs { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 1px; padding: 4px 8px; flex: 1; min-height: 0; }
+.tpp-glyph {
+  display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 1px solid var(--border);
+  background: var(--bg-input); color: var(--text-strong); cursor: default; line-height: 1; overflow: hidden;
+}
+.tpp-glyph:hover { border-color: var(--accent); }
+.tpp-glyph:focus { outline: 1px solid var(--accent); }
+.tpp-gfoot { display: flex; align-items: center; gap: 4px; }
+.tpp-gstatus { color: var(--text-dim); font-size: 11px; padding-left: 4px; }
+
+/* Type menu dialogs (tpc-*) */
+.tpc-warp { display: flex; flex-direction: column; gap: 10px; min-width: 300px; }
+.tpc-warp .disabled { opacity: .45; pointer-events: none; }
+.tpc-dir { gap: 16px; padding-left: 58px; }
+.tpc-dir label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.tpc-find .tpc-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; padding: 8px 0 0 78px; }
+.tpc-spellbox { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow-y: auto; min-width: 380px; }
+.tpc-spellrow { display: flex; flex-direction: column; gap: 3px; }
+.tpc-spellname { color: var(--text-dim); font-size: 11px; }
+.tpc-spell { width: 100%; resize: vertical; font: inherit; min-height: 40px; box-sizing: border-box; }
+.tpc-hint { color: var(--text-dim); font-size: 11px; }
+.tpc-match-body { display: flex; flex-direction: column; gap: 8px; min-width: 360px; }
+.tpc-mimg { max-width: 100%; max-height: 90px; object-fit: contain; align-self: flex-start; border: 1px solid var(--border); background: var(--checker); }
+.tpc-matches { max-height: 280px; overflow-y: auto; }
+.tpc-match { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 4px 8px; cursor: default; }
+.tpc-match:hover { background: var(--bg-list); }
+.tpc-match.selected { background: var(--bg-row-selected); color: var(--text-strong); }
+.tpc-mname { font-size: 12px; }
+.tpc-mprev { font-size: 18px; white-space: nowrap; overflow: hidden; }
