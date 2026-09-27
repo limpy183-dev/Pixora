@@ -1,0 +1,60 @@
+/* Brush Settings panel */
+.bs-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; font-size: 12px; color: var(--text); }
+.bs-head { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.bs-brushes-btn { height: 22px; padding: 0 12px; }
+.bs-tool { color: var(--text-dim); font-size: 11px; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bs-main { display: flex; flex: 1; min-height: 0; }
+.bs-list { width: 164px; flex: none; overflow: auto; border-right: 1px solid var(--border); padding: 4px 0; background: var(--bg-list); }
+.bs-item { display: flex; align-items: center; gap: 5px; padding: 3px 6px; cursor: default; white-space: nowrap; }
+.bs-item:hover { background: var(--bg-hover); }
+.bs-item.active { background: var(--bg-row-selected); color: var(--text-strong); }
+.bs-item input { margin: 0; width: 13px; height: 13px; accent-color: var(--accent); }
+.bs-cb-space { width: 13px; flex: none; }
+.bs-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.bs-lock { display: inline-flex; width: 16px; height: 16px; align-items: center; justify-content: center; border: 0; background: none; color: var(--text-dim); opacity: .45; padding: 0; }
+.bs-lock.on, .bs-item:hover .bs-lock { opacity: 1; }
+.bs-lock.on { color: var(--text-strong); }
+.bs-editor { flex: 1; min-width: 0; overflow: auto; padding: 6px 10px 10px; display: flex; flex-direction: column; gap: 6px; }
+.bs-editor.bs-off > :not(.bs-title) { opacity: .45; }
+.bs-title { font-weight: 600; color: var(--text-strong); padding: 2px 0 4px; }
+.bs-note { color: var(--text-dim); }
+.bs-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.bs-lab { color: var(--text); min-width: 52px; }
+.bs-fade { width: 100%; }
+.bs-fade .slider-row-label { display: none; }
+.bs-tips { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 3px; max-height: 150px; overflow: auto; padding: 3px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 3px; }
+.bs-tip { position: relative; height: 46px; border: 1px solid transparent; border-radius: 3px; background: none; display: flex; align-items: center; justify-content: center; padding: 0; }
+.bs-tip:hover { background: var(--bg-hover); }
+.bs-tip.active { border-color: var(--accent); background: var(--bg-row-selected); }
+.bs-tip img { max-width: 36px; max-height: 36px; }
+.bs-tip span { position: absolute; right: 2px; bottom: 0; font-size: 9px; color: var(--text-dim); }
+.bs-preview-wrap { border-top: 1px solid var(--border); padding: 6px; background: var(--bg-input); display: flex; justify-content: center; }
+.bs-preview { display: block; max-width: 100%; }
+.bs-foot { justify-content: flex-end; }
+[data-theme="light"] .bs-tip img, [data-theme="light"] .bs-preview, [data-theme="medium"] .bs-preview,
+[data-theme="light"] .bp-tip img, [data-theme="light"] .bp-stroke, [data-theme="medium"] .bp-stroke { filter: invert(0.85); }
+
+/* Define Brush Preset dialog */
+.bs-define { display: flex; align-items: center; gap: 14px; }
+.bs-define-prev { display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--text-dim); font-size: 11px; }
+.bs-define-thumb { border: 1px solid var(--border); }
+
+/* Brushes panel */
+.bp-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; }
+.bp-top { padding: 6px 8px 4px; display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--border); }
+.bp-search { width: 100%; box-sizing: border-box; }
+.bp-list { flex: 1; min-height: 0; overflow: auto; padding: 2px 4px 6px; }
+.bp-group { display: flex; align-items: center; gap: 5px; padding: 5px 2px; color: var(--text); font-size: 12px; cursor: default; border-radius: 3px; }
+.bp-group:hover { background: var(--bg-hover); }
+.bp-items { display: flex; flex-direction: column; gap: 1px; padding-left: 14px; }
+.bp-items.bp-view-tip { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 2px; }
+.bp-item { display: flex; align-items: center; gap: 8px; padding: 3px 4px; border-radius: 4px; cursor: default; }
+.bp-item:hover { background: var(--bg-hover); }
+.bp-item.active { background: var(--bg-row-selected); }
+.bp-tip { position: relative; width: 40px; height: 40px; flex: none; display: flex; align-items: center; justify-content: center; }
+.bp-tip img { max-width: 36px; max-height: 36px; }
+.bp-size { position: absolute; right: 0; bottom: -1px; font-size: 9px; color: var(--text-dim); }
+.bp-meta { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 1px; }
+.bp-name { font-size: 11px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bp-stroke { height: 24px; width: 100%; object-fit: contain; object-position: left center; }
+.bp-flex { flex: 1; }
