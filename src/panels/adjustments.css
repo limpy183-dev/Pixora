@@ -1,0 +1,21 @@
+/* Adjustments panel */
+.ap { padding: 10px 12px 12px; }
+.ap-heading { font-weight: 700; color: var(--text-strong); margin-bottom: 8px; min-height: 16px; }
+.ap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap: 4px; }
+.ap-btn { height: 34px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--icon); display: grid; place-items: center; cursor: default; transition: background .12s, border-color .12s, transform .08s; }
+.ap-btn:hover:not(:disabled) { background: var(--bg-hover); border-color: var(--border-input); }
+.ap-btn:active:not(:disabled) { background: var(--bg-pressed); transform: scale(.96); }
+.ap-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent-soft); }
+.ap-btn:disabled { opacity: .35; }
+.ap-sep { height: 1px; background: var(--border-soft); margin: 12px -12px 10px; }
+.ap-sub { font-weight: 700; color: var(--text-strong); margin-bottom: 6px; }
+.ap-folder { display: flex; align-items: center; gap: 6px; width: 100%; height: 26px; padding: 0 4px; border: 0; border-radius: 3px; background: transparent; color: var(--text); text-align: left; cursor: default; }
+.ap-folder:hover { background: var(--bg-row-hover); }
+.ap-folder .ap-count { margin-left: auto; color: var(--text-dim); font-size: 11px; }
+.ap-chev { display: inline-grid; width: 12px; }
+.ap-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; padding: 4px 2px 10px 22px; }
+.ap-item { display: flex; flex-direction: column; align-items: stretch; gap: 4px; padding: 4px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--text); cursor: default; }
+.ap-item:hover { background: var(--bg-row-hover); border-color: var(--border-input); }
+.ap-item:active { background: var(--bg-pressed); }
+.ap-thumb { width: 100%; aspect-ratio: 64 / 44; height: auto; border-radius: 2px; background: var(--checker); display: block; }
+.ap-name { font-size: 11px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; }

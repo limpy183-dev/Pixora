@@ -1,0 +1,16 @@
+/* Fill layer dialogs + Properties section */
+.fl-form { display: flex; flex-direction: column; gap: 8px; }
+.fl-form .form-row { gap: 8px; }
+.fl-label { min-width: 62px; text-align: right; color: var(--text); white-space: nowrap; }
+.fl-dialog .dialog-body { min-width: 380px; }
+.fl-dial {
+  width: 30px; height: 30px; border-radius: 50%; position: relative; flex: none; cursor: default;
+  border: 1.5px solid var(--text); background: var(--bg-input); touch-action: none;
+}
+.fl-dial-line {
+  position: absolute; left: 50%; top: 50%; width: 13px; height: 1.5px; margin-top: -.75px;
+  background: var(--text-strong); transform-origin: 0 50%;
+}
+.fl-dial::after { content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: var(--text-strong); }
+.fl-props { padding: 6px 12px 12px; display: flex; flex-direction: column; gap: 10px; }
+.fl-prop-head { display: flex; align-items: center; gap: 8px; }

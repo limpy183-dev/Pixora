@@ -1,0 +1,28 @@
+/* Painting tools: options-bar bits */
+.pt-angle { display: inline-flex; align-items: center; gap: 3px; color: var(--text-dim); }
+.pt-angle .field.num { width: 44px; }
+.pt-color-chip { width: 18px; height: 18px; border-radius: 3px; border: 1px solid var(--border); display: inline-block; vertical-align: middle; }
+.pt-mix-well { display: inline-flex; align-items: center; gap: 2px; }
+.pt-mix-swatch { width: 26px; height: 20px; border: 1px solid var(--border); border-radius: 3px; background: var(--checker); background-size: 8px 8px; position: relative; overflow: hidden; cursor: pointer; }
+.pt-mix-swatch > span { position: absolute; inset: 0; }
+.pt-mix-swatch.dry::after { content: ''; position: absolute; left: -2px; right: -2px; top: 50%; height: 1px; background: #e03c3c; transform: rotate(-35deg); }
+.pt-group { display: inline-flex; align-items: center; gap: 4px; }
+.pt-note { color: var(--text-dim); font-size: 11px; }
+/* brush picker popup (shared ui/brush-picker) */
+.brush-pick-pop { width: 300px !important; }
+.brush-pick-rowr { display: inline-flex; align-items: center; gap: 4px; }
+.brush-pick-ar { gap: 10px; justify-content: flex-start !important; }
+.brush-pick-search { width: 100%; box-sizing: border-box; margin-bottom: 6px; }
+.brush-pick-list { max-height: 300px; overflow: auto; display: flex; flex-direction: column; gap: 1px; }
+.brush-pick-ghead { display: flex; align-items: center; gap: 5px; padding: 4px 2px; color: var(--text); cursor: pointer; font-size: 11px; border-radius: 3px; }
+.brush-pick-ghead:hover { background: var(--bg-hover); }
+.brush-pick-item { display: grid; grid-template-columns: 40px 1fr; grid-template-rows: auto auto; align-items: center; column-gap: 8px; padding: 3px 4px 3px 18px; border-radius: 4px; cursor: default; }
+.brush-pick-item:hover { background: var(--bg-hover); }
+.brush-pick-item.active { background: var(--bg-row-selected); }
+.brush-pick-tipwrap { grid-row: 1 / span 2; position: relative; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.brush-pick-tip { max-width: 36px; max-height: 36px; }
+.brush-pick-num { position: absolute; right: 0; bottom: -2px; font-size: 9px; color: var(--text-dim); }
+.brush-pick-name { font-size: 11px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brush-pick-stroke { height: 22px; width: 100%; object-fit: contain; object-position: left center; opacity: .9; }
+.brush-pick-empty { color: var(--text-dim); padding: 10px; text-align: center; }
+[data-theme="light"] .brush-pick-tip, [data-theme="light"] .brush-pick-stroke, [data-theme="medium"] .brush-pick-stroke { filter: invert(0.85); }

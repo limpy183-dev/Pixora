@@ -1,0 +1,48 @@
+/* Selection tools options bar + selection dialogs. */
+.sel-ops { margin-right: 2px; }
+.sel-style-swap { width: 22px; height: 22px; }
+.sel-wh .field.num { width: 58px; }
+.sel-sam-btn, .sel-subject-btn { margin-left: 6px; white-space: nowrap; }
+.sel-note { color: var(--text-dim); font-size: 11px; margin-left: 6px; }
+
+/* Modify / Load / Save dialogs */
+.sel-form { display: flex; flex-direction: column; gap: 10px; min-width: 300px; }
+.sel-form .form-row { display: flex; align-items: center; gap: 8px; }
+.sel-form .form-label { min-width: 84px; text-align: right; color: var(--text); }
+.sel-fieldset { border: 1px solid var(--border); border-radius: 4px; padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.sel-legend { font-size: 11px; color: var(--text-dim); padding: 0 4px; margin: -18px 0 0 -4px; background: var(--bg); width: max-content; }
+.sel-radio { display: flex; align-items: center; gap: 6px; cursor: default; }
+.sel-radio input { accent-color: var(--accent); margin: 0; }
+
+/* Color Range / Focus Area */
+.cr-body { display: flex; flex-direction: column; gap: 8px; width: 330px; }
+.cr-top { display: flex; gap: 10px; align-items: flex-start; }
+.cr-top .form-row { display: flex; align-items: center; gap: 6px; }
+.cr-preview { width: 300px; height: 225px; background: #000; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); align-self: center; }
+.cr-preview canvas { max-width: 100%; max-height: 100%; cursor: crosshair; image-rendering: auto; }
+.cr-radios { display: flex; gap: 16px; justify-content: center; }
+.cr-droppers { display: flex; gap: 2px; }
+.cr-droppers .icon-btn.active { background: var(--bg-row-selected); }
+.cr-row { display: flex; align-items: center; gap: 8px; }
+.cr-row > span:first-child { min-width: 118px; }
+.cr-dim { opacity: .45; pointer-events: none; }
+
+/* Select and Mask workspace */
+.sam-overlay { position: fixed; inset: 0; z-index: 3000; background: var(--bg); display: grid; grid-template-rows: 40px 1fr; grid-template-columns: 44px 1fr 300px; color: var(--text); }
+.sam-bar { grid-column: 1 / 4; display: flex; align-items: center; gap: 8px; padding: 0 10px; border-bottom: 1px solid var(--border); background: var(--bg-tabbar); }
+.sam-bar .sam-title { font-weight: 600; margin-right: 10px; color: var(--text-strong); }
+.sam-tools { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; border-right: 1px solid var(--border); background: var(--bg-tabbar); }
+.sam-tools .icon-btn { width: 34px; height: 34px; }
+.sam-tools .icon-btn.active { background: var(--bg-row-selected); color: var(--text-strong); }
+.sam-stage { position: relative; overflow: hidden; background: var(--pasteboard, #282828); }
+.sam-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+.sam-props { border-left: 1px solid var(--border); overflow-y: auto; display: flex; flex-direction: column; background: var(--bg); }
+.sam-props .section-body { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 8px; }
+.sam-props .form-row { display: flex; align-items: center; gap: 8px; }
+.sam-props .form-label { min-width: 70px; }
+.sam-buttons { margin-top: auto; display: flex; gap: 8px; justify-content: flex-end; padding: 12px; border-top: 1px solid var(--border); }
+.sam-buttons .btn { min-width: 76px; }
+.sam-viewthumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.sam-viewthumbs button { font-size: 10px; padding: 4px 2px; border-radius: 3px; border: 1px solid var(--border); background: var(--bg-input); color: var(--text); cursor: pointer; }
+.sam-viewthumbs button.active { border-color: var(--accent); color: var(--text-strong); }
+.sam-hint { color: var(--text-dim); font-size: 11px; line-height: 1.4; }

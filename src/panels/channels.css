@@ -1,0 +1,18 @@
+/* Channels panel (prefix .chp-) */
+.chp { display: flex; flex-direction: column; flex: 1; min-height: 0; user-select: none; }
+.chp-list { flex: 1; min-height: 0; overflow-y: auto; background: var(--bg-list); }
+.chp-row { display: flex; align-items: stretch; height: 42px; border-bottom: 1px solid var(--border); }
+.chp-eye { width: 32px; flex: none; display: grid; place-items: center; background: var(--bg); border-right: 1px solid var(--border); color: var(--icon); }
+.chp-eye .ico { width: 16px; height: 16px; }
+.chp-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 0 10px 0 6px; }
+.chp-row:hover .chp-main { background: var(--bg-row-hover); }
+.chp-row.selected .chp-main { background: var(--bg-row-selected); }
+.chp-thumb { display: block; border: 1px solid #262626; background: #fff; flex: none; }
+.chp-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+.chp-row.selected .chp-name { color: var(--text-strong); }
+.chp-name.qm { font-style: italic; }
+.chp-sc { color: var(--text-dim); font-size: 11.5px; flex: none; }
+.chp-rename { flex: 1; min-width: 0; height: 20px; }
+.chp-footer { justify-content: flex-end; gap: 4px; }
+.chp-footer .icon-btn { min-width: 30px; height: 24px; }
+.chp-footer .icon-btn .ico { width: 17px; height: 17px; }

@@ -1,0 +1,11 @@
+{
+  "name": "Pixora",
+  "short_name": "Pixora",
+  "description": "A professional image editor in your browser.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#535353",
+  "theme_color": "#535353",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }],
+  "file_handlers": [{ "action": "/", "accept": { "image/*": [".png", ".jpg", ".jpeg", ".webp", ".gif", ".bmp", ".psd", ".pxd"] } }]
+}

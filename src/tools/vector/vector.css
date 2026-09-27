@@ -1,0 +1,66 @@
+/* Vector tools (prefix .vo-) — options bar controls & popovers */
+.vo-paint-btn, .vo-stroke-btn {
+  display: inline-flex; align-items: center; gap: 3px; height: 26px; padding: 0 3px 0 3px; border: 1px solid transparent;
+  border-radius: 3px; background: transparent; color: var(--icon); cursor: default;
+}
+.vo-paint-btn:hover, .vo-stroke-btn:hover { background: var(--bg-hover); }
+.vo-paint-prev {
+  width: 22px; height: 22px; border: 1px solid #1d1d1d; border-radius: 2px; display: grid; place-items: center; overflow: hidden;
+  background-size: cover; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.vo-paint-prev .ico { width: 22px; height: 22px; }
+.vo-stroke-prev { display: grid; place-items: center; width: 40px; height: 22px; color: var(--text-strong); }
+.vo-stroke-prev .ico { width: 40px; height: 20px; }
+.vo-grow { flex: 1; }
+.vo-pop-title { font-weight: 700; color: var(--text-strong); margin: 0 0 8px; }
+.vo-sub { color: var(--text-dim); font-size: 11px; margin: 8px 0 4px; }
+.vo-dim { color: var(--text-dim); padding: 18px 0; text-align: center; }
+.vo-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.vo-row .opt-label { min-width: 62px; }
+
+.vo-paint-pop { width: 300px; }
+.vo-paint-head { display: flex; align-items: center; gap: 4px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
+.vo-paint-head .icon-btn { width: 32px; height: 30px; }
+.vo-paint-head .icon-btn.active { background: var(--bg-pressed); box-shadow: inset 0 0 0 1px var(--accent); }
+.vo-paint-body { padding-top: 4px; min-height: 90px; }
+.vo-sw-row { display: flex; gap: 4px; flex-wrap: wrap; }
+.vo-sw-list { max-height: 210px; overflow: auto; padding-right: 4px; }
+.vo-sw-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
+.vo-sw { width: 20px; height: 20px; padding: 0; border: 1px solid #1d1d1d; border-radius: 2px; cursor: pointer; }
+.vo-sw:hover { outline: 2px solid var(--accent); outline-offset: -1px; }
+.vo-grad-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; max-height: 190px; overflow: auto; padding: 4px 2px; }
+.vo-grad { height: 36px; border: 1px solid #1d1d1d; border-radius: 3px; background-size: 100% 100%, 8px 8px; cursor: pointer; padding: 0; }
+.vo-grad.pat { background-size: auto; }
+.vo-grad.on, .vo-grad:hover { outline: 2px solid var(--accent); outline-offset: 0; }
+
+.vo-stroke-pop { width: 230px; }
+.vo-dash-list { display: flex; flex-direction: column; gap: 2px; background: var(--bg-list); border: 1px solid var(--border); padding: 3px; }
+.vo-dash-row { height: 24px; border: 0; background: transparent; color: var(--text-strong); display: grid; place-items: center; border-radius: 2px; }
+.vo-dash-row .ico { width: 150px; height: 20px; }
+.vo-dash-row:hover { background: var(--bg-row-hover, rgba(255,255,255,.06)); }
+.vo-dash-row.on { background: var(--bg-row-selected); }
+.vo-dash-grid { display: grid; grid-template-columns: repeat(6, auto); gap: 6px; justify-content: start; padding-left: 98px; }
+.vo-dash-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--text-dim); font-size: 11px; }
+
+.vo-gear-pop { width: 250px; }
+.vo-gear-pop .checkbox { margin-top: 8px; }
+.vo-gear-sep { border-top: 1px solid var(--border-soft); margin: 10px 0 2px; }
+
+.vo-shape-picker { display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 0 3px; border: 1px solid var(--border-input, #2a2a2a); border-radius: 3px; background: var(--bg-input); color: var(--text-strong); }
+.vo-shape-picker .ico { width: 20px; height: 20px; }
+.vo-shape-pop { width: 330px; }
+.vo-shape-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-height: 300px; overflow: auto; }
+.vo-shape-cell { height: 40px; display: grid; place-items: center; border: 1px solid transparent; border-radius: 3px; background: var(--bg-list); color: var(--text-strong); cursor: pointer; padding: 0; }
+.vo-shape-cell:hover { border-color: var(--accent); }
+.vo-shape-cell.on { background: var(--bg-row-selected); border-color: var(--accent); }
+.vo-shape-cell svg { width: 30px; height: 30px; }
+.vo-group-title { grid-column: 1 / -1; color: var(--text-dim); font-size: 11px; margin: 6px 0 0; }
+
+.vo-make { display: inline-flex; align-items: center; gap: 4px; }
+.vo-make .btn { height: 22px; padding: 0 8px; font-size: 11.5px; }
+
+/* inline dialog layouts */
+.vo-dlg-grid { display: grid; grid-template-columns: auto auto; gap: 8px 10px; align-items: center; }
+.vo-dlg-grid > label:nth-child(odd) { text-align: right; color: var(--text); }
+.vo-fieldset { border: 1px solid var(--border-soft); border-radius: 4px; padding: 10px 12px 12px; margin: 6px 0 4px; }
+.vo-fieldset > legend { padding: 0 4px; color: var(--text-strong); }
