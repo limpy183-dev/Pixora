@@ -1,0 +1,16 @@
+/* Edit features (ed-*) */
+.ed-fade-src { color: var(--text-dim); font-size: 11px; margin-bottom: 4px; }
+.ed-search-overlay { position: fixed; inset: 0; z-index: 7000; background: rgba(0,0,0,.25); display: flex; justify-content: center; align-items: flex-start; padding-top: 90px; }
+.ed-search { width: 600px; max-width: calc(100vw - 32px); background: var(--bg-menu); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; }
+.ed-search-bar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
+.ed-search-in { flex: 1; border: 0; outline: 0; background: transparent; color: var(--text-strong); font-size: 15px; padding: 4px 0; }
+.ed-search-list { max-height: 420px; overflow-y: auto; padding: 4px 0; }
+.ed-search-row { display: flex; align-items: center; gap: 10px; padding: 6px 12px; cursor: default; color: var(--text); }
+.ed-search-row.sel { background: var(--accent); color: #fff; }
+.ed-search-row.disabled { opacity: .5; }
+.ed-search-ic { display: inline-flex; flex: none; }
+.ed-search-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ed-search-path { margin-left: 8px; font-size: 11px; opacity: .65; }
+.ed-search-kind { font-size: 10px; opacity: .7; text-transform: uppercase; letter-spacing: .04em; }
+.ed-search-row kbd { font: 11px ui-monospace, monospace; border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; opacity: .8; }
+.ed-search-empty { padding: 14px; color: var(--text-dim); text-align: center; }
