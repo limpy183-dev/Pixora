@@ -111,7 +111,7 @@ registerCommands([
       const f = filters[id], doc = app.activeDoc;
       if (!doc) return;
       if (!f) { toast(`${id} is not available yet`); return; }
-      if (!editableTarget(doc)) return;
+      if (doc.activeLayer?.kind !== 'smart' && !editableTarget(doc)) return;   // smart objects get Smart Filters
       const params = await f.run(doc, {});
       if (params !== null && params !== undefined && params !== false) lastFilter = { id, params };
     },
@@ -121,7 +121,7 @@ registerCommands([
     get label() { return lastFilter ? filters[lastFilter.id]?.label || 'Last Filter' : 'Last Filter'; },
     run: async () => {
       const doc = app.activeDoc;
-      if (!doc || !lastFilter || !editableTarget(doc)) return;
+      if (!doc || !lastFilter || (doc.activeLayer?.kind !== 'smart' && !editableTarget(doc))) return;
       await filters[lastFilter.id]?.run(doc, { params: lastFilter.params });
     },
   } as any,

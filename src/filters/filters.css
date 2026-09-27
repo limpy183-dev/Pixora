@@ -1,0 +1,31 @@
+/* Filter dialogs (flt-*) */
+.flt-dialog .filter-controls { gap: 8px; }
+.flt-dialog .form-row { display: flex; align-items: center; gap: 8px; }
+.flt-dialog .form-label { min-width: 96px; color: var(--text); }
+.flt-check { padding-left: 2px; }
+.flt-radios { border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px 8px; margin: 2px 0; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.flt-radios legend { color: var(--text-dim); padding: 0 4px; font-size: 11px; }
+.flt-radio { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+.flt-center-wrap { display: flex; flex-direction: column; gap: 4px; }
+.flt-center-label { color: var(--text-dim); font-size: 11px; }
+.flt-center { border: 1px solid var(--border); cursor: crosshair; align-self: flex-start; max-width: 180px; background: var(--checker); }
+.flt-angle .flt-dial { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-input); position: relative; cursor: pointer; flex: none; }
+.flt-dial-hand { position: absolute; left: 50%; top: 50%; width: 13px; height: 2px; background: var(--text-strong); transform-origin: 0 50%; margin-top: -1px; }
+.flt-btn { align-self: flex-start; }
+.flt-hint { color: var(--text-dim); font-size: 11px; line-height: 1.4; }
+.flt-grid5 { display: grid; grid-template-columns: repeat(5, 46px); gap: 4px; }
+.flt-grid5 .field { width: 46px !important; text-align: center; }
+.flt-curve { border: 1px solid var(--border); background: var(--bg-input); cursor: crosshair; }
+.flt-pins { display: flex; flex-direction: column; gap: 4px; }
+.flt-sflist { display: flex; flex-direction: column; padding: 4px 8px 8px; }
+.flt-sfrow { display: flex; align-items: center; gap: 4px; padding: 2px 4px; border-radius: 3px; }
+.flt-sfrow:hover { background: var(--bg-list); }
+.flt-sfrow.master { color: var(--text-dim); }
+.flt-sfrow:not(.master) { padding-left: 18px; }
+.flt-sfname { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.flt-sub { color: var(--text-dim); font-size: 11px; margin-top: 6px; border-top: 1px solid var(--border); padding-top: 6px; }
+.flt-shapes { display: grid; grid-template-columns: repeat(auto-fill, 32px); gap: 3px; max-height: 150px; overflow-y: auto; padding: 2px; }
+.flt-shape { width: 32px; height: 32px; padding: 1px; border: 1px solid var(--border); background: var(--bg-input); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.flt-shape.active { border-color: var(--accent); background: var(--bg-row-selected); }
+.flt-pin-active .slider-row-label { color: var(--accent); }
+.flt-dialog .filter-controls { max-height: 560px; overflow-y: auto; padding-right: 4px; }
