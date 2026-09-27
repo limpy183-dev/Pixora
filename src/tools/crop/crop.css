@@ -1,3 +1,10 @@
 /* Crop tools options bar */
 .cr-btn { height: 22px; padding: 0 10px; }
 .cr-flex { flex: 1; }
+/* Slices (sl-*) */
+.sl-form { display: flex; flex-direction: column; gap: 6px; min-width: 320px; }
+.sl-sub { color: var(--text-dim); font-size: 11px; border-top: 1px solid var(--border); padding-top: 6px; }
+.sl-dims { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+.sl-dims .form-label { min-width: 20px; }
+.sl-fs { border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px 8px; }
+.sl-fs .form-row { gap: 6px; }
