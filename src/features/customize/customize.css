@@ -52,3 +52,34 @@
 .tbe-foot { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .tbe-foot .tbe-show { display: flex; gap: 10px; flex-wrap: wrap; }
 body.tb-hide-colors .toolbar-colors, body.tb-hide-qm .toolbar-bottom .qm-btn, body.tb-hide-screen .toolbar-bottom .tool-btn:nth-last-child(2), body.tb-hide-place .toolbar-bottom .tool-btn:last-child { display: none; }
+
+/* Preset Manager (pm-*) */
+.pm-body { display: flex; flex-direction: column; gap: 8px; }
+.pm-head { display: flex; align-items: center; gap: 8px; }
+.pm-main { display: grid; grid-template-columns: 1fr 120px; gap: 10px; }
+.pm-side { display: flex; flex-direction: column; gap: 6px; }
+.pm-side .btn { width: 100%; }
+.pm-grid { height: 420px; overflow-y: auto; background: var(--bg-list); border: 1px solid var(--border); border-radius: 3px; padding: 6px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 4px; }
+.pm-item { display: flex; align-items: center; gap: 8px; border: 1px solid transparent; border-radius: 3px; padding: 3px; cursor: default; user-select: none; }
+.pm-item:hover { border-color: var(--text-dim); }
+.pm-item.sel { border-color: var(--accent); background: var(--accent-soft); }
+.pm-item.drop { outline: 2px dashed var(--accent); }
+.pm-thumb { display: grid; place-items: center; line-height: 0; color: var(--text-strong); }
+.pm-thumb canvas, .pm-thumb img { display: block; max-width: 100%; }
+.pm-small .pm-thumb { width: 44px; height: 34px; overflow: hidden; }
+.pm-large { gap: 8px; }
+.pm-large .pm-item { flex-direction: column; width: 108px; }
+.pm-large .pm-thumb { width: 96px; height: 56px; overflow: hidden; }
+.pm-large .pm-name { font-size: 11px; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pm-list { flex-direction: column; flex-wrap: nowrap; gap: 1px; }
+.pm-list .pm-item { width: 100%; }
+.pm-list .pm-thumb { width: 60px; height: 26px; overflow: hidden; }
+.pm-name { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pm-swatch { display: block; width: 26px; height: 26px; border: 1px solid rgba(0, 0, 0, .35); }
+.pm-large .pm-swatch { width: 48px; height: 48px; }
+.pm-shape { width: 30px; height: 30px; }
+.pm-large .pm-shape { width: 50px; height: 50px; }
+.pm-info { color: var(--text-dim); font-size: 11px; }
+.pm-ei { display: flex; flex-direction: column; gap: 6px; padding-top: 6px; min-height: 260px; }
+.pm-ei-note { color: var(--text-dim); font-size: 12px; line-height: 1.45; }
+.pm-ei-row { padding-left: 4px; }
