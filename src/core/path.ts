@@ -166,7 +166,10 @@ export function traceAlpha(canvas: HTMLCanvasElement | ImageData, tolerance = 1,
       if (k === start) break;
     }
     if (loop.length < 4) continue;
-    const simple = rdp([...loop, loop[0]], tolerance);
+    // closed loop: split at the point farthest from the start (RDP needs distinct end points)
+    let far = 0, farD = -1;
+    for (let i = 1; i < loop.length; i++) { const dd = (loop[i].x - loop[0].x) ** 2 + (loop[i].y - loop[0].y) ** 2; if (dd > farD) { farD = dd; far = i; } }
+    const simple = [...rdp(loop.slice(0, far + 1), tolerance).slice(0, -1), ...rdp([...loop.slice(far), loop[0]], tolerance)];
     simple.pop();
     if (simple.length >= 3) out.push({ closed: true, points: simple.map(p => corner(p.x + offset.x, p.y + offset.y)) });
   }
