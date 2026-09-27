@@ -1,0 +1,5 @@
+/* Free Transform options bar */
+.ft-ref { display: grid; grid-template-columns: repeat(3, 7px); grid-template-rows: repeat(3, 7px); gap: 3px; padding: 2px 4px; }
+.ft-ref-dot { width: 7px; height: 7px; padding: 0; border: 1px solid var(--text-dim); background: transparent; border-radius: 1px; }
+.ft-ref-dot:hover { border-color: var(--text-strong); background: var(--text-dim); }
+.ft-flex { flex: 1; }
