@@ -14,7 +14,7 @@ import { openDialog, isDialogOpen } from '../../ui/dialog';
 import { checkbox, colorSwatch, numberField, select, sliderRow } from '../../ui/widgets';
 import { toast } from '../../ui/toast';
 import { fontPrefs, setPreviewSize } from '../../tools/type/fonts';
-import { xp, XDEFAULTS, setXPrefs, applyAppearance, resetAllPrefs, GRID_COLORS, GRID_SIZES, type XPrefs } from './store';
+import { xp, XDEFAULTS, setXPrefs, applyAppearance, resetAllPrefs, whenReady, GRID_COLORS, GRID_SIZES, type XPrefs } from './store';
 import { decodePXD, encodePXD } from '../file/formats';
 import { downloadBlob } from '../file/io';
 
@@ -236,7 +236,7 @@ function nativePicker(c: RGB): Promise<RGB | null> {
     inp.click();
   });
 }
-setTimeout(() => {
+whenReady(() => {
   const orig = hooks.openColorPicker;
   hooks.openColorPicker = ((c: RGB, ...rest: any[]) => (xp.colorPicker === 'system' ? nativePicker(c) : (orig as any)(c, ...rest))) as any;
 });
@@ -337,7 +337,7 @@ window.addEventListener('pagehide', () => {
 applyAppearance();
 new MutationObserver(() => applyAppearance()).observe(document.body, { attributes: true, attributeFilter: ['data-screen'] });
 scheduleRecovery();
-setTimeout(() => void offerRecovery(), 1500);
+whenReady(() => { applyAppearance(); setTimeout(() => void offerRecovery(), 800); });
 
 registerCommands([{ id: 'edit.preferences', label: 'Preferences...', shortcut: 'Ctrl+K', run: (s?: Section) => preferences(s) }]);
 (window as any).__pxPrefs = { xp, XDEFAULTS, setXPrefs, saveRecovery, offerRecovery, logText, preferences };

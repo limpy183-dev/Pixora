@@ -4,6 +4,12 @@ import { app, saveJSON } from '../../core/app';
 import { events } from '../../core/events';
 import { checkerStyle, resetCheckerPattern } from '../../core/canvas';
 
+/** Run fn once every feature module has loaded and registered (main.ts sets window.__pixoraReady). */
+export function whenReady(fn: () => void) {
+  if ((window as any).__pixoraReady) { fn(); return; }
+  const t = window.setInterval(() => { if ((window as any).__pixoraReady) { clearInterval(t); fn(); } }, 30);
+}
+
 export type Interp = 'nearest' | 'bilinear' | 'bicubic' | 'bicubic-smoother' | 'bicubic-sharper' | 'automatic';
 export interface XPrefs {
   // General

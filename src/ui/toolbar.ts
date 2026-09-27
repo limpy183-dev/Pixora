@@ -15,6 +15,8 @@ export const TOOLBAR_LAYOUT: string[] = [
 ];
 
 let doubleColumn = localStorage.getItem('pixora.toolbar.double') === '1';
+/** Extension point: extra entries for the "…" button (Edit › Toolbar puts the Extra Tools here). */
+export const toolbarExtras: { items: (() => MenuEntry[]) | null } = { items: null };
 
 export function createToolbar(): HTMLElement {
   const el = h('div.toolbar', { class: doubleColumn ? 'double' : '' });
@@ -61,7 +63,8 @@ export function createToolbar(): HTMLElement {
     }
     const more = h('button.tool-btn', { type: 'button', title: 'Edit Toolbar...' }, icon('more', 20), h('span.tool-flyout-mark'));
     more.addEventListener('click', () => {
-      const items: MenuEntry[] = [{ label: 'Edit Toolbar...', cmd: 'edit.toolbar' }];
+      const extra = toolbarExtras.items?.() || [];
+      const items: MenuEntry[] = [...extra, ...(extra.length ? ['-' as const] : []), { label: 'Edit Toolbar...', cmd: 'edit.toolbar' }];
       openMenu(items, more, { side: 'right' });
     });
     tools.appendChild(more);

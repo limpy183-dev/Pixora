@@ -1,0 +1,54 @@
+/* Keyboard Shortcuts and Menus dialog (cz-*) */
+.cz-body { display: flex; flex-direction: column; gap: 8px; }
+.cz-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--border); }
+.cz-tab { padding: 6px 14px; border: 0; background: transparent; color: var(--text-dim); cursor: pointer; border-bottom: 2px solid transparent; font-weight: 600; }
+.cz-tab.on { color: var(--text-strong); border-bottom-color: var(--accent); }
+.cz-head { display: flex; align-items: center; gap: 6px; }
+.cz-flex { flex: 1; }
+.cz-main { display: grid; grid-template-columns: 1fr 140px; gap: 10px; }
+.cz-list { height: 430px; overflow-y: auto; background: var(--bg-list); border: 1px solid var(--border); border-radius: 3px; }
+.cz-row { display: flex; align-items: center; gap: 6px; min-height: 24px; padding-right: 8px; border-bottom: 1px solid rgba(128, 128, 128, .12); cursor: default; }
+.cz-row:hover { background: var(--bg-input); }
+.cz-row.sel { background: var(--bg-row-selected); color: var(--text-strong); }
+.cz-row.changed .cz-name::after { content: ' •'; color: var(--accent); }
+.cz-row.pending .cz-sc { color: #f5b041; }
+.cz-row.hidden .cz-name { opacity: .45; text-decoration: line-through; }
+.cz-group { cursor: pointer; font-weight: 600; color: var(--text-strong); }
+.cz-colhead { position: sticky; top: 0; z-index: 1; background: var(--bg-tabbar); color: var(--text-dim); font-size: 11px; padding-left: 6px; cursor: default; }
+.cz-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cz-sc { width: 220px; padding: 2px 6px; border-radius: 3px; color: var(--text); cursor: text; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cz-sc:hover { background: var(--bg-input); }
+.cz-sc.capturing { background: var(--bg-input); outline: 1px solid var(--accent); color: var(--text-strong); }
+.cz-vis { width: 70px; display: flex; justify-content: center; }
+.cz-color { width: 104px; }
+.cz-side { display: flex; flex-direction: column; gap: 6px; }
+.cz-side .btn { width: 100%; }
+.cz-gap { flex: 1; }
+.cz-status { min-height: 18px; font-size: 12px; color: var(--text-dim); }
+.cz-status.warn { color: #f5b041; }
+.cz-status.error { color: #ff6b6b; }
+.cz-note { color: var(--text-dim); font-size: 11px; }
+.cz-row[data-color="red"], .menu-item[data-color="red"] { background: rgba(214, 60, 60, .35); }
+.cz-row[data-color="orange"], .menu-item[data-color="orange"] { background: rgba(230, 130, 40, .35); }
+.cz-row[data-color="yellow"], .menu-item[data-color="yellow"] { background: rgba(220, 200, 40, .35); }
+.cz-row[data-color="green"], .menu-item[data-color="green"] { background: rgba(60, 170, 80, .35); }
+.cz-row[data-color="blue"], .menu-item[data-color="blue"] { background: rgba(50, 120, 220, .35); }
+.cz-row[data-color="violet"], .menu-item[data-color="violet"] { background: rgba(150, 80, 210, .35); }
+.cz-row[data-color="gray"], .menu-item[data-color="gray"] { background: rgba(128, 128, 128, .35); }
+
+/* Customize Toolbar dialog (tbe-*) */
+.tbe-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-width: 620px; }
+.tbe-col { display: flex; flex-direction: column; gap: 4px; }
+.tbe-title { font-weight: 600; color: var(--text-strong); }
+.tbe-list { height: 440px; overflow-y: auto; background: var(--bg-list); border: 1px solid var(--border); border-radius: 3px; padding: 4px; }
+.tbe-slot { border: 1px solid var(--border); border-radius: 3px; margin: 3px 0; padding: 2px; background: var(--bg); min-height: 26px; }
+.tbe-slot.drop, .tbe-gap.drop, .tbe-list.drop { outline: 2px dashed var(--accent); outline-offset: -2px; }
+.tbe-gap { height: 6px; border-radius: 3px; }
+.tbe-tool { display: flex; align-items: center; gap: 8px; padding: 3px 6px; border-radius: 3px; cursor: grab; user-select: none; }
+.tbe-tool:hover { background: var(--bg-input); }
+.tbe-tool.dragging { opacity: .4; }
+.tbe-tool .tbe-key { margin-left: auto; color: var(--text-dim); font-size: 11px; }
+.tbe-empty { color: var(--text-dim); font-size: 11px; padding: 8px; text-align: center; }
+.tbe-foot { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.tbe-foot .tbe-show { display: flex; gap: 10px; flex-wrap: wrap; }
+body.tb-hide-colors .toolbar-colors, body.tb-hide-qm .toolbar-bottom .qm-btn, body.tb-hide-screen .toolbar-bottom .tool-btn:nth-last-child(2), body.tb-hide-place .toolbar-bottom .tool-btn:last-child { display: none; }

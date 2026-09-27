@@ -25,8 +25,13 @@ export interface MenuItem {
   header?: boolean;
   /** Extra element rendered on the right (e.g. color chip). */
   extra?: () => HTMLElement;
+  /** Highlight colour name (Edit › Menus), rendered as data-color on the row. */
+  color?: string;
 }
 export type MenuEntry = MenuItem | '-';
+
+/** Extension point: rewrite a menu's items before they are shown (Edit › Menus / Keyboard Shortcuts customisation). */
+export const menuHooks: { transform: ((items: MenuEntry[]) => MenuEntry[]) | null } = { transform: null };
 
 const val = <T>(v: T | (() => T) | undefined, d: T): T => (v === undefined ? d : typeof v === 'function' ? (v as () => T)() : v);
 
@@ -47,6 +52,7 @@ function isEnabled(it: MenuItem) {
 }
 
 function buildMenu(items: MenuEntry[], level: number): HTMLElement {
+  if (menuHooks.transform) items = menuHooks.transform(items);
   const menu = h('div.menu', { role: 'menu', tabindex: -1 });
   let pendingSep = false, any = false;
   for (const raw of items) {
@@ -69,6 +75,7 @@ function buildMenu(items: MenuEntry[], level: number): HTMLElement {
       h('span.menu-shortcut', null, sc ? shortcutLabel(sc) : ''),
       h('span.menu-arrow', null, hasSub ? icon('caret-right', 12) : null),
     );
+    if (it.color) row.dataset.color = it.color;
     if (enabled) {
       if (hasSub) {
         let timer = 0;
