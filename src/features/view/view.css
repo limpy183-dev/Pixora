@@ -1,0 +1,9 @@
+/* View module (vw-*) */
+.vw-form { display: flex; flex-direction: column; gap: 8px; min-width: 300px; }
+.vw-fs { border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px 8px; display: flex; gap: 16px; }
+.vw-fs legend { color: var(--text-dim); font-size: 11px; padding: 0 4px; }
+.vw-radio { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.vw-cols { display: flex; gap: 18px; }
+.vw-col { display: flex; flex-direction: column; gap: 6px; }
+.vw-col .form-label { min-width: 64px; }
+.vw-sub { color: var(--text-dim); font-size: 11px; border-top: 1px solid var(--border); padding-top: 6px; margin-top: 2px; }
