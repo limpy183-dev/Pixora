@@ -4,6 +4,7 @@ import { PixDocument } from '../../core/document';
 import { GroupLayer, RasterLayer, type Layer } from '../../core/layer';
 import { canvasFromBlob, canvasToBlob, createCanvas, ctx2d } from '../../core/canvas';
 import type { BlendMode, RGB } from '../../core/types';
+import { openPolicy, decodeRaw, convertCanvas } from '../color-mgmt/color-settings';
 
 export type SaveFormat = 'pxd' | 'psd' | 'png' | 'jpeg' | 'webp';
 export const FORMAT_INFO: Record<SaveFormat, { label: string; ext: string; mime: string }> = {
@@ -156,9 +157,17 @@ export async function writePSD(doc: PixDocument): Promise<Blob> {
 // ------------------------------------------------------------------ flat images
 export async function readImage(blob: Blob, name: string): Promise<PixDocument> {
   let c: HTMLCanvasElement;
+  let profile: string | null = null;
   if (blob.type === 'image/svg+xml' || extOf(name) === 'svg') c = await svgToCanvas(blob);
-  else c = await canvasFromBlob(blob);
+  else {
+    // Edit › Color Settings policies: keep the embedded profile (raw numbers + tag), convert or discard it
+    const pol = await openPolicy(blob, name);
+    c = pol.raw ? await decodeRaw(blob).catch(() => canvasFromBlob(blob)) : await canvasFromBlob(blob);
+    if (pol.convertTo) convertCanvas(c, 'srgb', pol.convertTo);
+    profile = pol.profile;
+  }
   const doc = PixDocument.create(c.width, c.height, { name: baseName(name), resolution: 72, background: 'transparent' });
+  if (profile) doc.extra.profile = profile;
   const l = doc.layers[0] as RasterLayer;
   ctx2d(l.canvas).drawImage(c, 0, 0);
   // opaque images open as a Background layer like Photoshop

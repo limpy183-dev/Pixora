@@ -14,6 +14,8 @@ import { xp } from '../prefs/store';
 
 interface Clip { canvas: HTMLCanvasElement; x: number; y: number; docW: number; docH: number; stamp: string }
 let clip: Clip | null = null;
+/** Edit › Purge › Clipboard: drop the internal clipboard contents. */
+export function purgeClipboard() { clip = null; }
 const D = () => app.activeDoc;
 const fail = (msg: string) => { toast(msg, 'error', 3600); return null; };
 const stampOf = (c: HTMLCanvasElement) => `${c.width}x${c.height}`;
