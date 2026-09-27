@@ -74,6 +74,12 @@ export const hooks = {
   /** Snap a point (doc coords). */
   snapPoint: (p: { x: number; y: number }, _doc: PixDocument): { x: number; y: number } => p,
 
+  /** Advanced blending (Blend If): adjust a layer's surface alpha against the backdrop before it is blended. */
+  beforeBlend: null as null | {
+    needs(layer: Layer): boolean;
+    apply(layer: Layer, surface: HTMLCanvasElement, backdrop: CanvasRenderingContext2D, R: { x: number; y: number; w: number; h: number }): void;
+  },
+
   /** Move tool "Show Transform Controls" integration (installed by the transform module). */
   moveTransform: null as null | {
     draw(ctx: CanvasRenderingContext2D, view: any, doc: PixDocument): void;

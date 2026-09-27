@@ -82,7 +82,7 @@ function renderLayer(doc: PixDocument, layer: Layer, ctx: CanvasRenderingContext
       compositeList(doc, layer.children, ctx, R);
       return;
     }
-  } else if (!hasMask(layer) && !hasEffects(layer) && NATIVE[layer.blendMode]) {
+  } else if (!hasMask(layer) && !hasEffects(layer) && NATIVE[layer.blendMode] && !hooks.beforeBlend?.needs(layer)) {
     // fast path: straight GPU draw
     const c = layer._preview || layer.getContent(doc);
     if (!c || !intersectRect({ x: c.x, y: c.y, w: c.canvas.width, h: c.canvas.height }, R)) return;
@@ -95,6 +95,7 @@ function renderLayer(doc: PixDocument, layer: Layer, ctx: CanvasRenderingContext
   }
   const s = surfaceOf(doc, layer, R);
   if (!s) return;
+  if (hooks.beforeBlend?.needs(layer)) hooks.beforeBlend.apply(layer, s, ctx, R);
   blendOnto(ctx, s, layer.blendMode, layer.opacity, R);
   returnCanvas(s);
 }
