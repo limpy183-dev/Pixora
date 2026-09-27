@@ -1,0 +1,11 @@
+/* Sky Replacement workspace */
+.sr-side { display: flex; flex-direction: column; gap: 4px; }
+.sr-grid { display: flex; flex-direction: column; gap: 4px; }
+.sr-cat { color: var(--text-dim); font-size: 11px; margin-top: 2px; }
+.sr-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.sr-thumb { padding: 0; border: 2px solid transparent; border-radius: 3px; background: var(--bg-input); cursor: pointer; line-height: 0; aspect-ratio: 112 / 64; overflow: hidden; }
+.sr-thumb canvas { width: 100%; height: 100%; display: block; }
+.sr-thumb:hover { border-color: var(--text-dim); }
+.sr-thumb.on { border-color: var(--accent); }
+.sr-add { display: flex; align-items: center; justify-content: center; color: var(--text); line-height: 1; }
+.sr-mode .form-label { min-width: 0; }
